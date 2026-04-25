@@ -9,7 +9,6 @@ int main()
     printf("--- Kondisi Awal ---\n");
     arena_dump(&myArena);
 
-    // Simulasi alokasi data (misal untuk Node Queue nanti)
     size_t node1 = arena_alloc(&myArena, 8);
     size_t node2 = arena_alloc(&myArena, 8);
 
