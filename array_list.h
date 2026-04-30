@@ -1,7 +1,7 @@
 #ifndef ARRAY_LIST_H
 #define ARRAY_LIST_H
 
-#include<arena.h>
+#include "arena.h"
 
 typedef struct {
     int data;
