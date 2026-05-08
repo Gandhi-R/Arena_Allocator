@@ -1,5 +1,6 @@
 #include "arena.h"
 #include "array_list.h"
+#include "simulation.h"
 #include <stdio.h>
 
 /*void demo_minggu1(Arena *a)
@@ -24,6 +25,7 @@
 }
 */
 
+/*
 void demo_minggu2(Arena *a)
 {
     // Demo Array
@@ -50,14 +52,16 @@ void demo_minggu2(Arena *a)
     printf("\n--- VISUALISASI ARENA (GRID) ---\n");
     arena_dump(a); 
 }
+*/
 
 int main()
 {
     printf("--- Program Dimulai ---\n");
     Arena myArena;
-    arena_init(&myArena, 1024); // Inisialisasi arena dengan 1024 bytes
+    arena_init(&myArena, 1024); 
 
-    demo_minggu2(&myArena); // Jalankan demo minggu 2
+    //demo_minggu2(&myArena); 
 
+    run_simulation(&myArena);
     return 0;
 }
