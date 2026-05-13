@@ -1,67 +1,37 @@
 #include "arena.h"
-#include "array_list.h"
 #include "simulation.h"
+#include "evaluation.h"
 #include <stdio.h>
 
-/*void demo_minggu1(Arena *a)
-{
-    Arena myArena;
-    arena_init(&myArena, 64); // Inisialisasi 64 bytes
-
-    printf("--- Kondisi Awal ---\n");
-    arena_dump(&myArena);
-
-    size_t node1 = arena_alloc(&myArena, 8);
-    size_t node2 = arena_alloc(&myArena, 8);
-
-    printf("--- Setelah Alokasi (node1 offset: %zu, node2 offset: %zu) ---\n", node1, node2);
-    arena_dump(&myArena);
-
-    printf("--- Setelah Reset ---\n");
-    arena_reset(&myArena);
-    arena_dump(&myArena);
-
-    return 0;
-}
-*/
-
-/*
-void demo_minggu2(Arena *a)
-{
-    // Demo Array
-    size_t arr_off = array_create(a, 5); 
-    int *arr = (int *)arena_get(a, arr_off);
-    arr[0] = 10;
-    arr[1] = 20; 
-
-    // Demo Linked List
-    size_t head = -1; // -1 melambangkan NULL untuk offset
-    head = list_append(a, head, 100);
-    head = list_append(a, head, 200);
-
-    printf("--- LINKED LIST TRAVERSAL ---\n");
-    size_t curr = head;
-    while (curr != -1)
-    {
-        // Node harus dikenal lewat array_list.h
-        Node *n = (Node *)arena_get(a, curr);
-        printf("[Offset: %zu] Data: %d | Next Offset: %ld\n", curr, n->data, n->next_offset);
-        curr = n->next_offset;
+void fase1_technical_stress(Arena *a) {
+    printf("\n>>> PHASE 1: TECHNICAL STRESS TEST (Overflow Check) <<<\n");
+    printf("Mencoba alokasi besar di arena kecil...\n");
+    for (int i = 0; i < 3; i++) {
+        size_t off = arena_alloc(a, 25);
+        if (off != (size_t)-1) printf("Alokasi %d sukses di offset %zu\n", i+1, off);
+        else printf("Alokasi %d GAGAL (Memori Penuh!)\n", i+1);
     }
-
-    printf("\n--- VISUALISASI ARENA (GRID) ---\n");
-    arena_dump(a); 
+    arena_dump(a);
 }
-*/
 
-int main()
-{
-    printf("--- Program Dimulai ---\n");
+int main() {
+    printf("=== FINAL PROJECT: ARENA ALLOCATOR 2026 ===\n");
+
+    // 1. Siapkan memori di STACK (0% Malloc)
+    unsigned char memori_utama[1024]; 
     Arena myArena;
-    arena_init(&myArena, 1024); 
+    arena_init_static(&myArena, memori_utama, 64); // Set kecil dulu buat Phase 1
 
-    //demo_minggu2(&myArena); 
+    // FASE 1: Stress Test 
+    fase1_technical_stress(&myArena);
 
+    // FASE 2: Simulasi
+    arena_reset(&myArena);
+    myArena.capacity = 1024; // Perbesar kapasitas buat simulasi
     run_simulation(&myArena);
+
+    // FASE 3: Benchmark (Minggu 4)
+    run_performance_test();
+
     return 0;
 }
