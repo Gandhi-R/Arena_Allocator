@@ -19,3 +19,4 @@ void run_simulation(Arena* a) {
     printf("State after one customer is served:\n");
     arena_dump(a);
 }
+
