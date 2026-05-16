@@ -15,4 +15,7 @@ typedef struct {
 void queue_init(ArenaQueue* q);
 void enqueue(Arena* a, ArenaQueue* q, int value);
 int dequeue(Arena* a, ArenaQueue* q); // Mengembalikan nilai yang keluar
+
+int queue_delete_id(Arena* a, ArenaQueue* q, int value);
+
 #endif

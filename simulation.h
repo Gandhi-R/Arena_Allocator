@@ -5,6 +5,6 @@
 #include "queue.h"
 
 // Fungsi utama untuk menjalankan skenario simulasi
-void run_simulation(Arena* a);
+void run_simulation(Arena* a, ArenaQueue* q);
 
 #endif
